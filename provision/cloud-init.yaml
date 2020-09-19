@@ -1,0 +1,21 @@
+#cloud-config
+
+packages:
+  - docker.io
+
+groups:
+  - docker
+
+users:
+  - name: ${ssh_user}
+    groups: [docker]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh_authorized_keys: [${ssh_key}]
+    shell: /bin/bash
+  - name: ${user}
+    groups: [docker]
+    sudo: false
+    ssh_authorized_keys: [${ssh_key}]
+
+ssh:
+  disable_root: true
